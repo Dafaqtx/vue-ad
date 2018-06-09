@@ -18,6 +18,17 @@
                 <v-list-tile-title v-text="link.title"></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
+            <v-list-tile
+              v-if="isUserLoggedIn"
+              @click="onLogOut"
+            >
+              <v-list-tile-action>
+                 <v-icon medium>exit_to_app</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title v-text="'Logout'"></v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
           </v-list>
         </v-navigation-drawer>
       <v-toolbar app dark color="primary">
@@ -39,6 +50,14 @@
           >
             <v-icon left>{{ link.icon }}</v-icon>
             {{ link.title }}
+            </v-btn>
+            <v-btn
+            @click="onLogOut"
+            v-if="isUserLoggedIn"
+            flat
+          >
+            <v-icon left>exit_to_app</v-icon>
+            Logout
             </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -67,24 +86,37 @@
 export default {
   data () {
     return {
-      drawer: false,
-      links: [
-        {title: 'Login', icon: 'account_circle', url: '/login'},
-        {title: 'Registration', icon: 'supervisor_account', url: '/registration'},
-        {title: 'Orders', icon: 'bookmark_border', url: '/orders'},
-        {title: 'New ad', icon: 'eject', url: '/new'},
-        {title: 'My ads', icon: 'list', url: '/list'}
-      ]
+      drawer: false
     }
   },
   computed: {
     error () {
       return this.$store.getters.error
+    },
+    isUserLoggedIn (state) {
+      return this.$store.getters.isUserLoggedIn
+    },
+    links () {
+      if (this.isUserLoggedIn) {
+        return [
+          {title: 'Orders', icon: 'bookmark_border', url: '/orders'},
+          {title: 'New ad', icon: 'eject', url: '/new'},
+          {title: 'My ads', icon: 'list', url: '/list'}
+        ]
+      }
+      return [
+        {title: 'Login', icon: 'account_circle', url: '/login'},
+        {title: 'Registration', icon: 'supervisor_account', url: '/registration'}
+      ]
     }
   },
   methods: {
     closeError () {
       return this.$store.dispatch('clearError')
+    },
+    onLogOut () {
+      this.$store.dispatch('logOutUser')
+      this.$router.push('/')
     }
   }
 }
