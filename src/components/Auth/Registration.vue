@@ -60,16 +60,16 @@ export default {
       confirmPassword: '',
       valid: false,
       emailRules: [
-          v => !!v || 'E-mail is required',
-          v => emailRegex.test(v) || 'E-mail must be valid'
+        v => !!v || 'E-mail is required',
+        v => emailRegex.test(v) || 'E-mail must be valid'
       ],
       passwordRules: [
-          v => !!v || 'Password is required',
-          v => (v && v.length >= 6) || 'Password must be qual or more than 6 characters'
+        v => !!v || 'Password is required',
+        v => (v && v.length >= 6) || 'Password must be qual or more than 6 characters'
       ],
       confirmPasswordRules: [
-          v => !!v || 'Password is required',
-          v => v == this.password || 'Passwords should match'
+        v => !!v || 'Password is required',
+        v => v === this.password || 'Passwords should match'
       ]
     }
   },
@@ -80,6 +80,7 @@ export default {
           email: this.email,
           password: this.password
         }
+        console.log(user)
       }
     }
   }

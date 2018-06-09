@@ -36,21 +36,21 @@
 export default {
   data () {
     return {
-        orders: [
-            {
-                id: 'fajb',
-                name: 'Alex',
-                phone: '8-800-2000-600',
-                adId: '123',
-                done: false
-            }
-        ]
+      orders: [
+        {
+          id: 'fajb',
+          name: 'Alex',
+          phone: '8-800-2000-600',
+          adId: '123',
+          done: false
+        }
+      ]
     }
   },
   methods: {
-      markDone (order) {
-          order.done = true
-      }
+    markDone (order) {
+      order.done = true
+    }
   }
 }
 </script>
